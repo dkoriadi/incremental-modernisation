@@ -1,0 +1,62 @@
+﻿@using eShopLegacy.Utilities
+@using Microsoft.AspNetCore.Html
+@using System.Web
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - Catalog manager (MVC - Core)</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/Content/custom.css" />
+    <link rel="stylesheet" href="~/Content/base.css" />
+    <link rel="stylesheet" href="~/Content/Site.css" />
+</head>
+<body>
+    <header class="navbar navbar-light navbar-static-top">
+        <div class="esh-header-brand">
+            <a href="@Url.Action("index", "catalog")">
+                <img src="~/images/brand.png" />
+            </a>
+            <a class="btn esh-button esh-button-primary" href="@Url.Action("index", "AspNetCoreSession")">Session</a>
+            <a class="btn esh-button esh-button-primary" href="@Url.Action("index", "UserInfo")">User Info</a>
+        </div>
+        <div class="esh-header-brand-right">
+            @Html.Partial("_LoginPartial")
+        </div>
+    </header>
+    <section class="esh-app-hero">
+        <div class="container esh-header">
+            <h1 class="esh-header-title">Catalog manager <span>(MVC - Core)</span></h1>
+        </div>
+    </section>
+
+    @RenderBody()
+
+    <footer class="esh-app-footer">
+        <div class="container">
+            <article class="row">
+                <section class="col-sm-6">
+                    <img class="esh-app-footer-brand" src="~/images/brand_dark.png" />
+                </section>
+                <section class="col-sm-6">
+                    <img class="esh-app-footer-text hidden-xs" src="~/images/main_footer_text.png" width="335" height="26" alt="footer text image" />
+                    <br />
+                    @*<small>@Environment.MachineName - @System.Diagnostics.Process.GetCurrentProcess().StartTime.ToString() UTC</small>*@
+                    @{
+                        var sessionInfo = new HtmlString($"{HttpContext.Current.Session?["MachineName"]}, {HttpContext.Current.Session?["SessionStartTime"]}");
+                    }
+                    <small>@sessionInfo</small>
+                    <br />
+                    <small>@WebHelper.UserAgent</small>
+                </section>
+
+            </article>
+        </div>
+    </footer>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" ></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</body>
+</html>
